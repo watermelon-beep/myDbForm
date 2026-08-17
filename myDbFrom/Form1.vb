@@ -2,26 +2,17 @@
 Imports System.Drawing.Drawing2D
 
 Public Class Form1
+
+    Private form2 As New Form2()
     Private Sub GroupBox1_Enter(sender As Object, e As EventArgs)
 
     End Sub
 
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        DataGridView1.BorderStyle = BorderStyle.Fixed3D
-        DataGridView1.BackgroundColor = Color.White
-        DataGridView1.RowHeadersVisible = False
-        DataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill
-        DataGridView1.SelectionMode = DataGridViewSelectionMode.FullRowSelect
-
-        DataGridView1.EnableHeadersVisualStyles = False
-        DataGridView1.ColumnHeadersDefaultCellStyle.BackColor = Color.SteelBlue
-        DataGridView1.ColumnHeadersDefaultCellStyle.ForeColor = Color.Black
-        DataGridView1.ColumnHeadersDefaultCellStyle.Font = New Font("Segoe UI", 10, FontStyle.Bold)
-
-        RoundDataGrid(DataGridView1, 20)
 
         connect()
         readData()
+        readData2()
     End Sub
 
     Private Sub RoundDataGrid(dataGrid As DataGridView, radius As Integer)
@@ -52,6 +43,20 @@ Public Class Form1
         sqldr.Close()
     End Sub
 
+    Sub readData2()
+        DataGridView2.Rows.Clear()
+        query = "SELECT student_name, student_age, student_course FROM student_record"
+        sqlcom = New SqlClient.SqlCommand(query, sqlconn)
+        sqldr = sqlcom.ExecuteReader
+
+        While sqldr.Read
+            DataGridView2.Rows.Add(sqldr("student_name"), sqldr("student_age"), sqldr("student_course"))
+        End While
+
+        sqlcom.Dispose()
+        sqldr.Close()
+    End Sub
+
     Sub saveData()
         query = "Insert into student_record (student_id, student_name, student_age, student_grade, student_course) values (@student_id, @student_name, @student_age, @student_grade, @student_course)"
         sqlcom = New SqlClient.SqlCommand(query, sqlconn)
@@ -71,5 +76,12 @@ Public Class Form1
         MsgBox("added")
         saveData()
         readData()
+        readData2()
+        form2.readData3()
+    End Sub
+
+    Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
+        Me.Hide()
+        form2.Show()
     End Sub
 End Class
