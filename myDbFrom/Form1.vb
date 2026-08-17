@@ -4,15 +4,14 @@ Imports System.Drawing.Drawing2D
 Public Class Form1
 
     Private form2 As New Form2()
-    Private Sub GroupBox1_Enter(sender As Object, e As EventArgs)
-
-    End Sub
-
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
         connect()
         readData()
         readData2()
+
+        studentCounter.Text = studentCount().ToString()
+
     End Sub
 
     Private Sub RoundDataGrid(dataGrid As DataGridView, radius As Integer)
@@ -78,10 +77,15 @@ Public Class Form1
         readData()
         readData2()
         form2.readData3()
+        studentCounter.Text = studentCount().ToString()
     End Sub
 
     Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
         Me.Hide()
         form2.Show()
+    End Sub
+
+    Private Sub Button3_Click(sender As Object, e As EventArgs)
+
     End Sub
 End Class

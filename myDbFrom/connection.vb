@@ -7,6 +7,8 @@ Module connection
     Public sqldr As SqlDataReader
     Public query As String
 
+    Public studCount As Integer = 0
+
     Sub connect()
         Try
             If sqlconn.State = ConnectionState.Open Then sqlconn.Close()
@@ -18,5 +20,13 @@ Module connection
 
         End Try
     End Sub
+
+    Function studentCount() As Integer
+        connect()
+        query = "SELECT COUNT (*) FROM student_record"
+        sqlcom = New SqlCommand(query, sqlconn)
+        studCount = Convert.ToInt32(sqlcom.ExecuteScalar())
+        Return studCount
+    End Function
 
 End Module
