@@ -63,18 +63,22 @@ Public Class Form1
     End Sub
 
     Sub saveData()
-        query = "Insert into student_record (student_id,
-                                             student_name, 
-                                             student_age,
-                                             student_grade,
-                                             student_course)
-                                    values (@student_id,
-                                            @student_name,
-                                            @student_age,
-                                            @student_grade,
-                                            @student_course)"
+
+        query = "INSERT INTO student_record (
+                student_id,
+                student_name, 
+                student_age,
+                student_grade,
+                student_course
+                )
+                VALUES (@student_id, 
+                        @student_name, 
+                        @student_age, 
+                        @student_grade,
+                        @student_course)"
 
         sqlcom = New SqlClient.SqlCommand(query, sqlconn)
+
         With sqlcom.Parameters
             .AddWithValue("@student_id", idtxbx.Text)
             .AddWithValue("@student_name", nametxbx.Text)
@@ -99,9 +103,5 @@ Public Class Form1
     Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
         Me.Hide()
         form2.Show()
-    End Sub
-
-    Private Sub Button3_Click(sender As Object, e As EventArgs)
-
     End Sub
 End Class

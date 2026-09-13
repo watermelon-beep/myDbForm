@@ -22,11 +22,11 @@ Module connection
     End Sub
 
     Function studentCount() As Integer
-        connect()
         query = "SELECT COUNT (*) FROM student_record"
         sqlcom = New SqlCommand(query, sqlconn)
         studCount = Convert.ToInt32(sqlcom.ExecuteScalar())
         Return studCount
+
     End Function
 
 End Module
