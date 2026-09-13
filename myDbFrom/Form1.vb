@@ -35,7 +35,11 @@ Public Class Form1
         sqldr = sqlcom.ExecuteReader
 
         While sqldr.Read
-            DataGridView1.Rows.Add(sqldr("student_id"), sqldr("student_name"), sqldr("student_age"), sqldr("student_grade"), sqldr("student_course"))
+            DataGridView1.Rows.Add(sqldr("student_id"),
+                                   sqldr("student_name"),
+                                   sqldr("student_age"),
+                                   sqldr("student_grade"),
+                                   sqldr("student_course"))
         End While
 
         sqlcom.Dispose()
@@ -49,7 +53,9 @@ Public Class Form1
         sqldr = sqlcom.ExecuteReader
 
         While sqldr.Read
-            DataGridView2.Rows.Add(sqldr("student_name"), sqldr("student_age"), sqldr("student_course"))
+            DataGridView2.Rows.Add(sqldr("student_name"),
+                                   sqldr("student_age"),
+                                   sqldr("student_course"))
         End While
 
         sqlcom.Dispose()
@@ -57,7 +63,17 @@ Public Class Form1
     End Sub
 
     Sub saveData()
-        query = "Insert into student_record (student_id, student_name, student_age, student_grade, student_course) values (@student_id, @student_name, @student_age, @student_grade, @student_course)"
+        query = "Insert into student_record (student_id,
+                                             student_name, 
+                                             student_age,
+                                             student_grade,
+                                             student_course)
+                                    values (@student_id,
+                                            @student_name,
+                                            @student_age,
+                                            @student_grade,
+                                            @student_course)"
+
         sqlcom = New SqlClient.SqlCommand(query, sqlconn)
         With sqlcom.Parameters
             .AddWithValue("@student_id", idtxbx.Text)
